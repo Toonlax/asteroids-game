@@ -15,14 +15,19 @@ def main():
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    # Game Loop
     while True:
         log_state()
+
+        # Close Button Functionality
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        screen.fill("black")
-        player.draw(screen)
-        pygame.display.flip()
+            
+        screen.fill("black") # Makes the game background black
+        player.update(dt) # Updates the position of the player if keys are pressed
+        player.draw(screen) # Renders the player onto the screen
+        pygame.display.flip() # Displays stuff onto the game screen
         
         dt = clock.tick(60) / 1000
    
