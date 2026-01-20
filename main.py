@@ -13,6 +13,9 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    updatable = pygame.sprite.Group() # Creates an empty group (All updatable objects)
+    drawable = pygame.sprite.Group() # Creates an empty group (All drawable objects)
+    Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # Game Loop
@@ -25,8 +28,9 @@ def main():
                 return
             
         screen.fill("black") # Makes the game background black
-        player.update(dt) # Updates the position of the player if keys are pressed
-        player.draw(screen) # Renders the player onto the screen
+        updatable.update(dt) # Updates the position of any entity in the updatable group if keys are pressed
+        for d in drawable:
+            d.draw(screen) # Renders each element in the drawable group onto the screen
         pygame.display.flip() # Displays stuff onto the game screen
         
         dt = clock.tick(60) / 1000
